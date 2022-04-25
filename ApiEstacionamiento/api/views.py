@@ -35,7 +35,9 @@ class EstacionamientoView(View):
         jd=json.loads(request.body)
         Estacionamiento.objects.create(username=jd['username'],tittle=jd['tittle'],desc=jd['desc'],
         rating=jd['rating'],lat=jd['lat'],long=jd['long'])
-        datos={'message' : 'success'}
+        Ultimo=Estacionamiento.objects.latest('id')
+        print(Ultimo.id)
+        datos={'message' : 'success' ,'id' : Ultimo.id}
         return JsonResponse(datos)
 
     def put(self, request,id):
