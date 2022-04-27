@@ -10,3 +10,4 @@ class Estacionamiento(models.Model):
     rating=models.PositiveSmallIntegerField()
     lat=models.FloatField()
     long=models.FloatField()
+
