@@ -6,7 +6,7 @@ from django.db import models
 class Estacionamiento(models.Model):
     username=models.CharField(max_length=50)
     tittle=models.CharField(max_length=50)
-    desc=models.CharField(max_length=100)
+    desc=models.CharField(max_length=200)
     rating=models.PositiveSmallIntegerField()
     lat=models.FloatField()
     long=models.FloatField()

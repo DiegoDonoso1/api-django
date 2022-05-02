@@ -1,5 +1,6 @@
 from pyexpat import model
 from django.db import models
+import datetime
 
 from api.models import Estacionamiento
 
@@ -9,5 +10,5 @@ class Review(models.Model):
     user=models.CharField(max_length=50)
     rating= models.PositiveSmallIntegerField()
     fecha_creacion= models.DateTimeField(auto_now_add=True)
-    description= models.CharField(max_length=100)
+    description= models.CharField(max_length=200)
     parking= models.ForeignKey(Estacionamiento, on_delete=models.CASCADE,null=False, blank=False)
