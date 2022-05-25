@@ -1,9 +1,14 @@
+from email.mime import image
+import re
+from wsgiref import headers
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from .models import Estacionamiento
+
+from user.models import User
+from .models import Estacionamiento, ImagenProducto
 import json
 
 # Create your views here.
@@ -17,26 +22,35 @@ class EstacionamientoView(View):
     def get(self, request,id=0):
         if(id>0):
             estacionamientos=list(Estacionamiento.objects.filter(id=id).values())
+            imagenes= list(ImagenProducto.objects.filter(producto=id).values())
             if len(estacionamientos)>0:
                 estacionamiento=estacionamientos[0]
-                datos={'message' : 'Success','estacionamientos':estacionamiento}
+                imagen=imagenes[0]
+                datos={'message' : 'Success','estacionamientos':estacionamiento,'imagen':imagen}
             else:
                 datos={'message' : 'Estacionamiento no encontrado'}
             return JsonResponse(datos)
         else:
+            imagenes=list(ImagenProducto.objects.values())
             estacionamientos= list(Estacionamiento.objects.values())
             if len(estacionamientos) > 0:
-                datos={'message' : 'Success','estacionamientos':estacionamientos}
+                datos={'message' : 'Success','estacionamientos':estacionamientos, 'imagenes':imagenes}
             else:
                 datos={'message' : 'Estacionamientos no encontrados'}
         return JsonResponse(datos)
 
     def post(self, request):
-        jd=json.loads(request.body)
-        Estacionamiento.objects.create(username=jd['username'],tittle=jd['tittle'],desc=jd['desc'],
-        rating=jd['rating'],lat=jd['lat'],long=jd['long'])
+        images = request.FILES.get('imagenes')
+        js = request.POST
+        
+        print(js)
+        print('Files: ',images)
+
+        Estacionamiento.objects.create(username=js['username'],tittle=js['tittle'],desc=js['desc'],
+        precio=js['precio'],lat=js['lat'],long=js['long'],direccion=js['direccion'],user=User.objects.get(id=js['user_id']))
         Ultimo=Estacionamiento.objects.latest('id')
-        print(Ultimo.id)
+        ImagenProducto.objects.create(imagen=images, producto=Estacionamiento.objects.get(id=Ultimo.id))
+        #print(Ultimo.id)
         datos={'message' : 'success' ,'id' : Ultimo.id}
         return JsonResponse(datos)
 

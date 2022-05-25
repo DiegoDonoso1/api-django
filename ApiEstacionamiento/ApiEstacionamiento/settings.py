@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from pickle import FALSE
 
@@ -39,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'api.apps.ApiConfig',
-    'review'
+    'api',
+    'review',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -127,7 +129,7 @@ DATE_FORMAT = 'd-m-Y'
 
 TIME_ZONE = 'America/Santiago'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_TZ = True
 
@@ -138,6 +140,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_URL ='/media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
