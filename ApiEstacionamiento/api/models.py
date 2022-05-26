@@ -9,7 +9,7 @@ from user.models import User
 class Estacionamiento(models.Model):
     username= models.CharField(max_length=50)
     tittle= models.CharField(max_length=50)
-    desc= models.CharField(max_length=200)
+    desc= models.CharField(max_length=5000)
     precio= models.IntegerField()
     direccion=models.CharField(max_length=300)
     lat= models.FloatField()
