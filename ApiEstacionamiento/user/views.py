@@ -8,6 +8,9 @@ from .models import User
 from django.http import JsonResponse
 import json
 
+
+
+
 # Create your views here.
 
 
@@ -44,3 +47,5 @@ class UserView(View):
         User.objects.create(rut=js['rut'],correo=js['username'],nombre=js['nombre'],apellido_P=js['apellidoP'],apellido_M=js['apellidoM'],fecha_nacimiento=js['fechaNacimiento'],celular=js['celular']) 
         datos={'message' : 'success' }
         return JsonResponse(datos)
+
+

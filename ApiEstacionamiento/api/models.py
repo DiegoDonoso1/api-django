@@ -14,13 +14,13 @@ class Estacionamiento(models.Model):
     direccion=models.CharField(max_length=300)
     lat= models.FloatField()
     long= models.FloatField()
-    user= models.ForeignKey(User, on_delete=models.CASCADE,null=False, blank=False)
+    user= models.ForeignKey(User, on_delete=models.CASCADE,null=False, blank=False,related_name='userid')
 
     def __str__(self):
         return self. tittle
 
 
 class ImagenProducto(models.Model):
-    imagen = models.ImageField(upload_to='estacionamientos')
+    imagen = models.ImageField(upload_to='estacionamientos',null=False, blank=False)
     producto = models.ForeignKey(Estacionamiento, on_delete=models.CASCADE, related_name='imagenes')
 

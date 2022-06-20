@@ -34,15 +34,34 @@ class ReviewView(View):
         return JsonResponse(datos)
 
     def post(self, request):
-        jd=json.loads(request.body)
+        jd=request.POST
         print(jd)
         Review.objects.create(user=jd['username'],description=jd['description'],rating=jd['rating'],parking=Estacionamiento.objects.get(id =jd['parking_id']))
         datos={'message' : 'success' }
         return JsonResponse(datos)
 
-    def put():
-        pass
+    def put(self, request,id):
+        jz=request.body.decode('utf-8')
+        jd=json.loads(jz)
+        reviews=list(Review.objects.filter(id=id).values())
+        Ultimo=Review.objects.latest('id')
+        print(jd)
+        if len(reviews)>0:
+            review=Review.objects.get(id=id)
+            review.rating= jd['rating']
+            review.description=jd['description']
+            review.save()
+            datos={'message' : 'success', 'id' : Ultimo.id}
+        else:
+            datos={'message' : 'Review no encontrado'}
+        return JsonResponse(datos)
 
-    def delete():
-        pass
+    def delete(self, request,id):
+        reviews=list(Review.objects.filter(id=id).values())
+        if len(reviews)>0:
+            Review.objects.filter(id=id).delete()
+            datos={'message' : 'success'}
+        else:
+            datos={'message' : 'Review no encontrada'}
+        return JsonResponse(datos)
     
