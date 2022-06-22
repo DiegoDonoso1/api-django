@@ -40,7 +40,7 @@ class datosContrato(View):
         """ jd=json.loads(request.body) """
         print(jd)
         DatosContrato.objects.create(banco=jd['banco'],nMeses=jd['nMeses'],nCuenta=jd['nCuenta'],
-        fechaInicio=jd['fechaI'],estacionamiento=Estacionamiento.objects.get(id =jd['id']))
+        fechaInicio=jd['fechaI'],nEstacionamiento=jd['nEstacionamiento'],nInscripcion=jd['nBienes'],anoInscripcion=jd['nInsc'],nombreEsta=jd['nombreEsta'],estacionamiento=Estacionamiento.objects.get(id =jd['id']))
         datos={'message' : 'success' }
         return JsonResponse(datos)
 

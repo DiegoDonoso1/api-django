@@ -39,12 +39,12 @@ class UserView(View):
         return JsonResponse(datos)
 
     def post(self, request):
-        #images = request.FILES.get('imagenes')
+        imagen = request.FILES.get('imagenes')
         js=request.POST
         
         print(js)
         #print('Files: ',images)
-        User.objects.create(rut=js['rut'],correo=js['username'],nombre=js['nombre'],apellido_P=js['apellidoP'],apellido_M=js['apellidoM'],fecha_nacimiento=js['fechaNacimiento'],celular=js['celular']) 
+        User.objects.create(rut=js['rut'],correo=js['username'],nombre=js['nombre'],apellido_P=js['apellidoP'],apellido_M=js['apellidoM'],fecha_nacimiento=js['fechaNacimiento'],direccion=js['direccion'],celular=js['celular'],imagen=imagen) 
         datos={'message' : 'success' }
         return JsonResponse(datos)
 

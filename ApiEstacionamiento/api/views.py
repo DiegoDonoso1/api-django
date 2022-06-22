@@ -114,7 +114,7 @@ class PdfView(View):
             }
         html =template.render(context)
         response = HttpResponse(content_type='application/pdf')
-        #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+        response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
         pisa_status = pisa.CreatePDF(
             html, dest=response)

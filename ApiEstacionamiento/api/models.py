@@ -15,9 +15,11 @@ class Estacionamiento(models.Model):
     lat= models.FloatField()
     long= models.FloatField()
     user= models.ForeignKey(User, on_delete=models.CASCADE,null=False, blank=False,related_name='userid')
+    promedio =models.IntegerField(default=0)
 
     def __str__(self):
         return self. tittle
+
 
 
 class ImagenProducto(models.Model):
