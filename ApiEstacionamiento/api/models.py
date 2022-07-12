@@ -7,11 +7,11 @@ from user.models import User
 # Create your models here.
 
 class Estacionamiento(models.Model):
-    username= models.CharField(max_length=50)
-    tittle= models.CharField(max_length=50)
+    username= models.CharField(max_length=200)
+    tittle= models.CharField(max_length=1000)
     desc= models.CharField(max_length=5000)
     precio= models.IntegerField()
-    direccion=models.CharField(max_length=300)
+    direccion=models.CharField(max_length=3000)
     lat= models.FloatField()
     long= models.FloatField()
     user= models.ForeignKey(User, on_delete=models.CASCADE,null=False, blank=False,related_name='userid')
